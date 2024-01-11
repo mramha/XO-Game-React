@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react"; // Import useContext
+import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import "./PlayerNames.scss";
 import Game from "../game/Game";
 import close from "../../img/close.png";
 import o from "../../img/o.png";
-import UserContext from "../../components/UserContext"; // Update with the correct path
+import UserContext from "../../components/UserContext";
 
 const PlayerNames = () => {
-  const { players, setPlayers } = useContext(UserContext); // Corrected to include players
+  const { players, setPlayers } = useContext(UserContext);
 
   const [gameStarted, setGameStarted] = useState(false);
 
@@ -53,8 +53,8 @@ const PlayerNames = () => {
           {players.map((player) => (
             <label key={player.id} className={player.id.toLowerCase()}>
               <img
-                src={player.id === "X" ? close : o} // Updated image source
-                alt={player.id === "X" ? "Close Icon" : "O Icon"} // Updated alt text
+                src={player.id === "X" ? close : o}
+                alt={player.id === "X" ? "Close Icon" : "O Icon"}
                 style={{ marginRight: "10px", marginBottom: "-6px" }}
               />
               <motion.input
