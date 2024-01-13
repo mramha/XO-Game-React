@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
-import "./PlayerNames.scss"; // Import the SCSS file
-import Game from "../game/Game"; // Import the Game component
-import close from "../../img/close.png"; // Corrected import statement
-import o from "../../img/o.png"; // Corrected import statement
+import "./PlayerNames.scss";
+import Game from "../game/Game";
+import close from "../../img/close.png";
+import o from "../../img/o.png";
+import UserContext from "../../components/UserContext";
 
 const PlayerNames = () => {
-  const initialPlayers = [
-    { id: "X", name: "" },
-    { id: "O", name: "" },
-  ];
+  const { players, setPlayers } = useContext(UserContext);
 
-  const [players, setPlayers] = useState(initialPlayers);
   const [gameStarted, setGameStarted] = useState(false);
 
   const handleInputChange = (e, playerId) => {
@@ -23,7 +20,6 @@ const PlayerNames = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Set the gameStarted state to true
     setGameStarted(true);
   };
 
@@ -37,7 +33,6 @@ const PlayerNames = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
   };
 
-  // Conditionally render the PlayerNames or Game component
   if (!gameStarted) {
     return (
       <motion.div
@@ -58,8 +53,8 @@ const PlayerNames = () => {
           {players.map((player) => (
             <label key={player.id} className={player.id.toLowerCase()}>
               <img
-                src={process.env.PUBLIC_URL + (player.id === "X" ? close : o)}
-                alt={player.id === "X" ? "Close Icon" : "Cooking Icon"}
+                src={player.id === "X" ? close : o}
+                alt={player.id === "X" ? "Close Icon" : "O Icon"}
                 style={{ marginRight: "10px", marginBottom: "-6px" }}
               />
               <motion.input
@@ -79,7 +74,6 @@ const PlayerNames = () => {
       </motion.div>
     );
   } else {
-    // If the game has started, render the Game component and pass player names as props
     return <Game playerXName={players[0].name} playerOName={players[1].name} />;
   }
 };
